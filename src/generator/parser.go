@@ -405,7 +405,7 @@ func (x *LeoLex) Lex(yylval *LeoSymType) int {
 	fmt.Printf("Lexing: %c\n", c)
 	if c == eof {
 		fmt.Printf("EOF\n")
-		return EOF
+		return eof
 	}
 
 	tokens[0] = x.LexWhitespace(yylval)
