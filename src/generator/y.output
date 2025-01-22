@@ -1,0 +1,5993 @@
+
+state 0
+	$accept: .file_ $end 
+
+	PACKAGE  shift 3
+	.  error
+
+	file_  goto 1
+	package_  goto 2
+
+state 1
+	$accept:  file_.$end 
+
+	$end  accept
+	.  error
+
+
+2: shift/reduce conflict (shift 6(0), red'n 8(0)) on IMPORT
+state 2
+	file_:  package_.import_list top_declaration_list EOF 
+	import_list: .    (8)
+
+	IMPORT  shift 6
+	.  reduce 8 (src line 389)
+
+	import_  goto 5
+	import_list  goto 4
+
+state 3
+	package_:  PACKAGE.id terminal 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 7
+
+4: shift/reduce conflict (shift 19(0), red'n 19(0)) on FUNC
+4: shift/reduce conflict (shift 20(0), red'n 19(0)) on VAR
+4: shift/reduce conflict (shift 21(0), red'n 19(0)) on CONST
+4: shift/reduce conflict (shift 22(0), red'n 19(0)) on TYPE
+4: shift/reduce conflict (shift 23(0), red'n 19(0)) on STRUCT
+4: shift/reduce conflict (shift 24(0), red'n 19(0)) on INTERFACE
+state 4
+	file_:  package_ import_list.top_declaration_list EOF 
+	import_list:  import_list.import_ 
+	top_declaration_list: .    (19)
+
+	IMPORT  shift 6
+	FUNC  shift 19
+	VAR  shift 20
+	CONST  shift 21
+	TYPE  shift 22
+	STRUCT  shift 23
+	INTERFACE  shift 24
+	.  reduce 19 (src line 403)
+
+	import_  goto 10
+	top_declaration  goto 11
+	top_declaration_list  goto 9
+	func_  goto 12
+	var_  goto 14
+	const_  goto 15
+	type_  goto 16
+	struct_  goto 17
+	interface_  goto 18
+	method  goto 13
+
+state 5
+	import_list:  import_.    (9)
+
+	.  reduce 9 (src line 389)
+
+
+state 6
+	import_:  IMPORT.string_literal terminal 
+
+	STRING_LITERAL  shift 26
+	.  error
+
+	string_literal  goto 25
+
+state 7
+	package_:  PACKAGE id.terminal 
+
+	NEWLINE  shift 29
+	SEMICOLON  shift 28
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  error
+
+	terminal  goto 27
+
+state 8
+	id:  IDENTIFIER.    (160)
+
+	.  reduce 160 (src line 807)
+
+
+state 9
+	file_:  package_ import_list top_declaration_list.EOF 
+	top_declaration_list:  top_declaration_list.top_declaration 
+
+	FUNC  shift 19
+	VAR  shift 20
+	CONST  shift 21
+	TYPE  shift 22
+	STRUCT  shift 23
+	INTERFACE  shift 24
+	EOF  shift 32
+	.  error
+
+	top_declaration  goto 33
+	func_  goto 12
+	var_  goto 14
+	const_  goto 15
+	type_  goto 16
+	struct_  goto 17
+	interface_  goto 18
+	method  goto 13
+
+state 10
+	import_list:  import_list import_.    (10)
+
+	.  reduce 10 (src line 389)
+
+
+state 11
+	top_declaration_list:  top_declaration.    (20)
+
+	.  reduce 20 (src line 403)
+
+
+state 12
+	top_declaration:  func_.    (12)
+
+	.  reduce 12 (src line 398)
+
+
+state 13
+	top_declaration:  method.    (13)
+
+	.  reduce 13 (src line 398)
+
+
+state 14
+	top_declaration:  var_.    (14)
+
+	.  reduce 14 (src line 398)
+
+
+state 15
+	top_declaration:  const_.    (15)
+
+	.  reduce 15 (src line 398)
+
+
+state 16
+	top_declaration:  type_.    (16)
+
+	.  reduce 16 (src line 398)
+
+
+state 17
+	top_declaration:  struct_.    (17)
+
+	.  reduce 17 (src line 398)
+
+
+state 18
+	top_declaration:  interface_.    (18)
+
+	.  reduce 18 (src line 398)
+
+
+state 19
+	func_:  FUNC.id template_params LPAREN parameter_list RPAREN block 
+	method:  FUNC.symbol template_params PERIOD id LPAREN parameter_list RPAREN return_params block 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 34
+	symbol  goto 35
+
+state 20
+	var_:  VAR.id symbol 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 36
+
+state 21
+	const_:  CONST.id symbol 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 37
+
+state 22
+	type_:  TYPE.id template_params symbol 
+	type_:  TYPE.id template_params struct_ 
+	type_:  TYPE.id template_params interface_ 
+	type_:  TYPE.id template_params map_ 
+	type_:  TYPE.id template_params channel_ 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 38
+
+state 23
+	struct_:  STRUCT.id LBRACE field_list RBRACE 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 39
+
+state 24
+	interface_:  INTERFACE.id LBRACE interface_method_list RBRACE 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 40
+
+state 25
+	import_:  IMPORT string_literal.terminal 
+
+	NEWLINE  shift 29
+	SEMICOLON  shift 28
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  error
+
+	terminal  goto 41
+
+state 26
+	string_literal:  STRING_LITERAL.    (11)
+
+	.  reduce 11 (src line 394)
+
+
+state 27
+	package_:  PACKAGE id terminal.    (6)
+
+	.  reduce 6 (src line 376)
+
+
+state 28
+	terminal:  SEMICOLON.    (1)
+
+	.  reduce 1 (src line 366)
+
+
+state 29
+	terminal:  NEWLINE.    (2)
+
+	.  reduce 2 (src line 366)
+
+
+state 30
+	terminal:  EOF.    (3)
+
+	.  reduce 3 (src line 366)
+
+
+state 31
+	terminal:  ILLEGAL.    (4)
+
+	.  reduce 4 (src line 366)
+
+
+state 32
+	file_:  package_ import_list top_declaration_list EOF.    (5)
+
+	.  reduce 5 (src line 368)
+
+
+state 33
+	top_declaration_list:  top_declaration_list top_declaration.    (21)
+
+	.  reduce 21 (src line 403)
+
+
+34: shift/reduce conflict (shift 43(0), red'n 56(0)) on LBRACK
+state 34
+	func_:  FUNC id.template_params LPAREN parameter_list RPAREN block 
+	symbol:  id.    (56)
+	template_params: .    (23)
+
+	LBRACK  shift 43
+	LPAREN  reduce 23 (src line 418)
+	.  reduce 56 (src line 492)
+
+	template_params  goto 42
+
+35: shift/reduce conflict (shift 45(0), red'n 23(0)) on PERIOD
+state 35
+	method:  FUNC symbol.template_params PERIOD id LPAREN parameter_list RPAREN return_params block 
+	symbol:  symbol.PERIOD symbol 
+	template_params: .    (23)
+
+	PERIOD  shift 45
+	LBRACK  shift 43
+	.  error
+
+	template_params  goto 44
+
+state 36
+	var_:  VAR id.symbol 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 47
+	symbol  goto 46
+
+state 37
+	const_:  CONST id.symbol 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 47
+	symbol  goto 48
+
+state 38
+	type_:  TYPE id.template_params symbol 
+	type_:  TYPE id.template_params struct_ 
+	type_:  TYPE id.template_params interface_ 
+	type_:  TYPE id.template_params map_ 
+	type_:  TYPE id.template_params channel_ 
+	template_params: .    (23)
+
+	LBRACK  shift 43
+	.  reduce 23 (src line 418)
+
+	template_params  goto 49
+
+state 39
+	struct_:  STRUCT id.LBRACE field_list RBRACE 
+
+	LBRACE  shift 50
+	.  error
+
+
+state 40
+	interface_:  INTERFACE id.LBRACE interface_method_list RBRACE 
+
+	LBRACE  shift 51
+	.  error
+
+
+state 41
+	import_:  IMPORT string_literal terminal.    (7)
+
+	.  reduce 7 (src line 382)
+
+
+state 42
+	func_:  FUNC id template_params.LPAREN parameter_list RPAREN block 
+
+	LPAREN  shift 52
+	.  error
+
+
+state 43
+	template_params:  LBRACK.parameter_list RBRACK 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 55
+	parameter  goto 54
+	parameter_list  goto 53
+
+state 44
+	method:  FUNC symbol template_params.PERIOD id LPAREN parameter_list RPAREN return_params block 
+
+	PERIOD  shift 56
+	.  error
+
+
+state 45
+	symbol:  symbol PERIOD.symbol 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 47
+	symbol  goto 57
+
+state 46
+	var_:  VAR id symbol.    (49)
+	symbol:  symbol.PERIOD symbol 
+
+	PERIOD  shift 45
+	.  reduce 49 (src line 472)
+
+
+state 47
+	symbol:  id.    (56)
+
+	.  reduce 56 (src line 492)
+
+
+state 48
+	const_:  CONST id symbol.    (50)
+	symbol:  symbol.PERIOD symbol 
+
+	PERIOD  shift 45
+	.  reduce 50 (src line 479)
+
+
+state 49
+	type_:  TYPE id template_params.symbol 
+	type_:  TYPE id template_params.struct_ 
+	type_:  TYPE id template_params.interface_ 
+	type_:  TYPE id template_params.map_ 
+	type_:  TYPE id template_params.channel_ 
+
+	IDENTIFIER  shift 8
+	STRUCT  shift 23
+	INTERFACE  shift 24
+	MAP  shift 63
+	CHANNEL  shift 64
+	.  error
+
+	struct_  goto 59
+	interface_  goto 60
+	map_  goto 61
+	channel_  goto 62
+	id  goto 47
+	symbol  goto 58
+
+state 50
+	struct_:  STRUCT id LBRACE.field_list RBRACE 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 67
+	field  goto 66
+	field_list  goto 65
+
+state 51
+	interface_:  INTERFACE id LBRACE.interface_method_list RBRACE 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 70
+	interface_method_list  goto 68
+	interface_method  goto 69
+
+state 52
+	func_:  FUNC id template_params LPAREN.parameter_list RPAREN block 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 55
+	parameter  goto 54
+	parameter_list  goto 71
+
+state 53
+	template_params:  LBRACK parameter_list.RBRACK 
+	parameter_list:  parameter_list.COMMA parameter 
+
+	COMMA  shift 73
+	RBRACK  shift 72
+	.  error
+
+
+state 54
+	parameter_list:  parameter.    (27)
+
+	.  reduce 27 (src line 430)
+
+
+state 55
+	parameter:  id.symbol 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 47
+	symbol  goto 74
+
+state 56
+	method:  FUNC symbol template_params PERIOD.id LPAREN parameter_list RPAREN return_params block 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 75
+
+57: shift/reduce conflict (shift 45(0), red'n 57(0)) on PERIOD
+state 57
+	symbol:  symbol.PERIOD symbol 
+	symbol:  symbol PERIOD symbol.    (57)
+
+	PERIOD  shift 45
+	.  reduce 57 (src line 492)
+
+
+state 58
+	type_:  TYPE id template_params symbol.    (51)
+	symbol:  symbol.PERIOD symbol 
+
+	PERIOD  shift 45
+	.  reduce 51 (src line 486)
+
+
+state 59
+	type_:  TYPE id template_params struct_.    (52)
+
+	.  reduce 52 (src line 487)
+
+
+state 60
+	type_:  TYPE id template_params interface_.    (53)
+
+	.  reduce 53 (src line 488)
+
+
+state 61
+	type_:  TYPE id template_params map_.    (54)
+
+	.  reduce 54 (src line 489)
+
+
+state 62
+	type_:  TYPE id template_params channel_.    (55)
+
+	.  reduce 55 (src line 490)
+
+
+state 63
+	map_:  MAP.LBRACK symbol RBRACK symbol 
+
+	LBRACK  shift 76
+	.  error
+
+
+state 64
+	channel_:  CHANNEL.symbol 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 47
+	symbol  goto 77
+
+state 65
+	struct_:  STRUCT id LBRACE field_list.RBRACE 
+	field_list:  field_list.field 
+
+	IDENTIFIER  shift 8
+	RBRACE  shift 78
+	.  error
+
+	id  goto 67
+	field  goto 79
+
+state 66
+	field_list:  field.    (60)
+
+	.  reduce 60 (src line 512)
+
+
+state 67
+	field:  id.symbol 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 47
+	symbol  goto 80
+
+state 68
+	interface_:  INTERFACE id LBRACE interface_method_list.RBRACE 
+	interface_method_list:  interface_method_list.interface_method 
+
+	IDENTIFIER  shift 8
+	RBRACE  shift 81
+	.  error
+
+	id  goto 70
+	interface_method  goto 82
+
+state 69
+	interface_method_list:  interface_method.    (63)
+
+	.  reduce 63 (src line 520)
+
+
+state 70
+	interface_method:  id.symbol LPAREN parameter_list RPAREN return_params 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 47
+	symbol  goto 83
+
+state 71
+	func_:  FUNC id template_params LPAREN parameter_list.RPAREN block 
+	parameter_list:  parameter_list.COMMA parameter 
+
+	COMMA  shift 73
+	RPAREN  shift 84
+	.  error
+
+
+state 72
+	template_params:  LBRACK parameter_list RBRACK.    (24)
+
+	.  reduce 24 (src line 419)
+
+
+state 73
+	parameter_list:  parameter_list COMMA.parameter 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 55
+	parameter  goto 85
+
+state 74
+	parameter:  id symbol.    (29)
+	symbol:  symbol.PERIOD symbol 
+
+	PERIOD  shift 45
+	.  reduce 29 (src line 436)
+
+
+state 75
+	method:  FUNC symbol template_params PERIOD id.LPAREN parameter_list RPAREN return_params block 
+
+	LPAREN  shift 86
+	.  error
+
+
+state 76
+	map_:  MAP LBRACK.symbol RBRACK symbol 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 47
+	symbol  goto 87
+
+state 77
+	symbol:  symbol.PERIOD symbol 
+	channel_:  CHANNEL symbol.    (148)
+
+	PERIOD  shift 45
+	.  reduce 148 (src line 739)
+
+
+state 78
+	struct_:  STRUCT id LBRACE field_list RBRACE.    (58)
+
+	.  reduce 58 (src line 498)
+
+
+state 79
+	field_list:  field_list field.    (61)
+
+	.  reduce 61 (src line 512)
+
+
+state 80
+	symbol:  symbol.PERIOD symbol 
+	field:  id symbol.    (62)
+
+	PERIOD  shift 45
+	.  reduce 62 (src line 518)
+
+
+state 81
+	interface_:  INTERFACE id LBRACE interface_method_list RBRACE.    (59)
+
+	.  reduce 59 (src line 505)
+
+
+state 82
+	interface_method_list:  interface_method_list interface_method.    (64)
+
+	.  reduce 64 (src line 520)
+
+
+state 83
+	symbol:  symbol.PERIOD symbol 
+	interface_method:  id symbol.LPAREN parameter_list RPAREN return_params 
+
+	PERIOD  shift 45
+	LPAREN  shift 88
+	.  error
+
+
+state 84
+	func_:  FUNC id template_params LPAREN parameter_list RPAREN.block 
+
+	LBRACE  shift 90
+	.  error
+
+	block  goto 89
+
+state 85
+	parameter_list:  parameter_list COMMA parameter.    (28)
+
+	.  reduce 28 (src line 430)
+
+
+state 86
+	method:  FUNC symbol template_params PERIOD id LPAREN.parameter_list RPAREN return_params block 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 55
+	parameter  goto 54
+	parameter_list  goto 91
+
+state 87
+	symbol:  symbol.PERIOD symbol 
+	map_:  MAP LBRACK symbol.RBRACK symbol 
+
+	PERIOD  shift 45
+	RBRACK  shift 92
+	.  error
+
+
+state 88
+	interface_method:  id symbol LPAREN.parameter_list RPAREN return_params 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 55
+	parameter  goto 54
+	parameter_list  goto 93
+
+state 89
+	func_:  FUNC id template_params LPAREN parameter_list RPAREN block.    (22)
+
+	.  reduce 22 (src line 409)
+
+
+state 90
+	block:  LBRACE.statement_list RBRACE 
+	block:  LBRACE.statement_list RBRACE 
+
+	IDENTIFIER  shift 8
+	VAR  shift 127
+	FOR  shift 132
+	RANGE  shift 133
+	BREAK  shift 134
+	CONTINUE  shift 135
+	GOTO  shift 136
+	IF  shift 129
+	ELSE  shift 130
+	SWITCH  shift 131
+	RETURN  shift 126
+	FALLTHROUGH  shift 137
+	SAFE  shift 138
+	LBRACE  shift 90
+	NEW_ASSIGN  shift 128
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	for_  goto 104
+	range_  goto 105
+	break_  goto 106
+	continue_  goto 107
+	goto_  goto 108
+	if_  goto 101
+	else_  goto 102
+	switch_  goto 103
+	return_  goto 98
+	fallthrough_  goto 109
+	safe  goto 110
+	id  goto 47
+	expr  goto 97
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	statement  goto 95
+	block  goto 96
+	statement_list  goto 94
+	symbol  goto 125
+	var_assign  goto 99
+	new_assign  goto 100
+
+state 91
+	parameter_list:  parameter_list.COMMA parameter 
+	method:  FUNC symbol template_params PERIOD id LPAREN parameter_list.RPAREN return_params block 
+
+	COMMA  shift 73
+	RPAREN  shift 142
+	.  error
+
+
+state 92
+	map_:  MAP LBRACK symbol RBRACK.symbol 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 47
+	symbol  goto 143
+
+state 93
+	parameter_list:  parameter_list.COMMA parameter 
+	interface_method:  id symbol LPAREN parameter_list.RPAREN return_params 
+
+	COMMA  shift 73
+	RPAREN  shift 144
+	.  error
+
+
+state 94
+	block:  LBRACE statement_list.RBRACE 
+	statement_list:  statement_list.terminal statement 
+	block:  LBRACE statement_list.RBRACE 
+
+	NEWLINE  shift 29
+	SEMICOLON  shift 28
+	RBRACE  shift 145
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  error
+
+	terminal  goto 146
+
+state 95
+	statement_list:  statement.    (31)
+
+	.  reduce 31 (src line 449)
+
+
+state 96
+	statement:  block.terminal 
+
+	NEWLINE  shift 29
+	SEMICOLON  shift 28
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  error
+
+	terminal  goto 147
+
+state 97
+	statement:  expr.terminal 
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	NEWLINE  shift 29
+	RANGE  shift 173
+	SEMICOLON  shift 28
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	PLUS  shift 149
+	MINUS  shift 150
+	MUL  shift 151
+	DIV  shift 152
+	MOD  shift 153
+	EQ  shift 154
+	NEQ  shift 155
+	LT  shift 156
+	GT  shift 157
+	LTE  shift 158
+	GTE  shift 159
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	EOF  shift 30
+	ILLEGAL  shift 31
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  error
+
+	terminal  goto 148
+
+state 98
+	statement:  return_.terminal 
+
+	NEWLINE  shift 29
+	SEMICOLON  shift 28
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  error
+
+	terminal  goto 178
+
+state 99
+	statement:  var_assign.terminal 
+
+	NEWLINE  shift 29
+	SEMICOLON  shift 28
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  error
+
+	terminal  goto 179
+
+state 100
+	statement:  new_assign.terminal 
+
+	NEWLINE  shift 29
+	SEMICOLON  shift 28
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  error
+
+	terminal  goto 180
+
+state 101
+	statement:  if_.terminal 
+
+	NEWLINE  shift 29
+	SEMICOLON  shift 28
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  error
+
+	terminal  goto 181
+
+state 102
+	statement:  else_.terminal 
+
+	NEWLINE  shift 29
+	SEMICOLON  shift 28
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  error
+
+	terminal  goto 182
+
+state 103
+	statement:  switch_.terminal 
+
+	NEWLINE  shift 29
+	SEMICOLON  shift 28
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  error
+
+	terminal  goto 183
+
+state 104
+	statement:  for_.terminal 
+
+	NEWLINE  shift 29
+	SEMICOLON  shift 28
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  error
+
+	terminal  goto 184
+
+state 105
+	statement:  range_.terminal 
+
+	NEWLINE  shift 29
+	SEMICOLON  shift 28
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  error
+
+	terminal  goto 185
+
+state 106
+	statement:  break_.terminal 
+
+	NEWLINE  shift 29
+	SEMICOLON  shift 28
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  error
+
+	terminal  goto 186
+
+state 107
+	statement:  continue_.terminal 
+
+	NEWLINE  shift 29
+	SEMICOLON  shift 28
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  error
+
+	terminal  goto 187
+
+state 108
+	statement:  goto_.terminal 
+
+	NEWLINE  shift 29
+	SEMICOLON  shift 28
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  error
+
+	terminal  goto 188
+
+state 109
+	statement:  fallthrough_.terminal 
+
+	NEWLINE  shift 29
+	SEMICOLON  shift 28
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  error
+
+	terminal  goto 189
+
+state 110
+	statement:  safe.terminal 
+
+	NEWLINE  shift 29
+	SEMICOLON  shift 28
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  error
+
+	terminal  goto 190
+
+state 111
+	expr:  unary_expr.    (99)
+
+	.  reduce 99 (src line 644)
+
+
+state 112
+	expr:  binary_expr.    (100)
+
+	.  reduce 100 (src line 644)
+
+
+state 113
+	expr:  ternary_expr.    (101)
+
+	.  reduce 101 (src line 644)
+
+
+state 114
+	expr:  assign_expr.    (102)
+
+	.  reduce 102 (src line 644)
+
+
+state 115
+	expr:  new_assign_expr.    (103)
+
+	.  reduce 103 (src line 644)
+
+
+state 116
+	expr:  accessor_expr.    (104)
+
+	.  reduce 104 (src line 644)
+
+
+state 117
+	expr:  index_expr.    (105)
+
+	.  reduce 105 (src line 644)
+
+
+state 118
+	expr:  slice_expr.    (106)
+
+	.  reduce 106 (src line 644)
+
+
+state 119
+	expr:  call_expr.    (107)
+
+	.  reduce 107 (src line 644)
+
+
+state 120
+	expr:  channel_send_expr.    (108)
+
+	.  reduce 108 (src line 644)
+
+
+state 121
+	expr:  channel_receive_expr.    (109)
+
+	.  reduce 109 (src line 644)
+
+
+state 122
+	expr:  bridge_expr.    (110)
+
+	.  reduce 110 (src line 644)
+
+
+state 123
+	expr:  transfer_expr.    (111)
+
+	.  reduce 111 (src line 644)
+
+
+state 124
+	expr:  range_expr.    (112)
+
+	.  reduce 112 (src line 644)
+
+
+125: shift/reduce conflict (shift 45(0), red'n 113(0)) on PERIOD
+state 125
+	symbol:  symbol.PERIOD symbol 
+	expr:  symbol.    (113)
+
+	PERIOD  shift 45
+	.  reduce 113 (src line 644)
+
+
+state 126
+	return_:  RETURN.expr terminal 
+	return_:  RETURN.terminal 
+
+	NEWLINE  shift 29
+	IDENTIFIER  shift 8
+	SEMICOLON  shift 28
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  error
+
+	id  goto 47
+	expr  goto 191
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+	terminal  goto 192
+
+state 127
+	var_assign:  VAR.id ASSIGN expr terminal 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 194
+
+state 128
+	new_assign:  NEW_ASSIGN.id ASSIGN expr terminal 
+	new_assign_expr:  NEW_ASSIGN.id ASSIGN expr 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 195
+
+state 129
+	if_:  IF.expr block 
+	if_:  IF.expr block else_ 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 196
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 130
+	else_:  ELSE.block 
+	else_:  ELSE.if_ block 
+
+	IF  shift 129
+	LBRACE  shift 90
+	.  error
+
+	if_  goto 198
+	block  goto 197
+
+state 131
+	switch_:  SWITCH.expr LBRACE case_list RBRACE 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 199
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+132: shift/reduce conflict (shift 8(0), red'n 83(0)) on IDENTIFIER
+132: shift/reduce conflict (shift 128(10), red'n 83(0)) on NEW_ASSIGN
+132: shift/reduce conflict (shift 139(1), red'n 83(0)) on PLUS
+132: shift/reduce conflict (shift 140(1), red'n 83(0)) on MINUS
+132: shift/reduce conflict (shift 141(9), red'n 83(0)) on NOT
+132: shift/reduce conflict (shift 8(0), red'n 88(0)) on IDENTIFIER
+132: shift/reduce conflict (shift 128(10), red'n 88(0)) on NEW_ASSIGN
+132: shift/reduce conflict (shift 139(1), red'n 88(0)) on PLUS
+132: shift/reduce conflict (shift 140(1), red'n 88(0)) on MINUS
+132: shift/reduce conflict (shift 141(9), red'n 88(0)) on NOT
+state 132
+	for_:  FOR.for_init for_condition for_post block 
+	for_init: .    (83)
+	for_condition: .    (88)
+
+	IDENTIFIER  shift 8
+	VAR  shift 127
+	NEW_ASSIGN  shift 128
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 201
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+	for_init  goto 200
+	for_condition  goto 204
+	var_assign  goto 202
+	new_assign  goto 203
+
+state 133
+	range_:  RANGE.expr block 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 205
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 134
+	break_:  BREAK.terminal 
+
+	NEWLINE  shift 29
+	SEMICOLON  shift 28
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  error
+
+	terminal  goto 206
+
+state 135
+	continue_:  CONTINUE.terminal 
+
+	NEWLINE  shift 29
+	SEMICOLON  shift 28
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  error
+
+	terminal  goto 207
+
+state 136
+	goto_:  GOTO.id terminal 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 208
+
+state 137
+	fallthrough_:  FALLTHROUGH.terminal 
+
+	NEWLINE  shift 29
+	SEMICOLON  shift 28
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  error
+
+	terminal  goto 209
+
+state 138
+	safe:  SAFE.terminal 
+
+	NEWLINE  shift 29
+	SEMICOLON  shift 28
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  error
+
+	terminal  goto 210
+
+state 139
+	unary_expr:  PLUS.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 211
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 140
+	unary_expr:  MINUS.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 212
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 141
+	unary_expr:  NOT.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 213
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 142
+	method:  FUNC symbol template_params PERIOD id LPAREN parameter_list RPAREN.return_params block 
+
+	IDENTIFIER  shift 8
+	LPAREN  shift 216
+	.  error
+
+	id  goto 55
+	parameter  goto 215
+	return_params  goto 214
+
+state 143
+	symbol:  symbol.PERIOD symbol 
+	map_:  MAP LBRACK symbol RBRACK symbol.    (143)
+
+	PERIOD  shift 45
+	.  reduce 143 (src line 705)
+
+
+state 144
+	interface_method:  id symbol LPAREN parameter_list RPAREN.return_params 
+
+	IDENTIFIER  shift 8
+	LPAREN  shift 216
+	.  error
+
+	id  goto 55
+	parameter  goto 215
+	return_params  goto 217
+
+ 145: reduce/reduce conflict  (red'ns 30 and 66) on NEWLINE
+ 145: reduce/reduce conflict  (red'ns 30 and 66) on FUNC
+ 145: reduce/reduce conflict  (red'ns 30 and 66) on VAR
+ 145: reduce/reduce conflict  (red'ns 30 and 66) on CONST
+ 145: reduce/reduce conflict  (red'ns 30 and 66) on TYPE
+ 145: reduce/reduce conflict  (red'ns 30 and 66) on STRUCT
+ 145: reduce/reduce conflict  (red'ns 30 and 66) on INTERFACE
+ 145: reduce/reduce conflict  (red'ns 30 and 66) on ELSE
+ 145: reduce/reduce conflict  (red'ns 30 and 66) on SEMICOLON
+ 145: reduce/reduce conflict  (red'ns 30 and 66) on LBRACE
+ 145: reduce/reduce conflict  (red'ns 30 and 66) on EOF
+ 145: reduce/reduce conflict  (red'ns 30 and 66) on ILLEGAL
+state 145
+	block:  LBRACE statement_list RBRACE.    (30)
+	block:  LBRACE statement_list RBRACE.    (66)
+
+	.  reduce 30 (src line 443)
+
+
+state 146
+	statement_list:  statement_list terminal.statement 
+
+	IDENTIFIER  shift 8
+	VAR  shift 127
+	FOR  shift 132
+	RANGE  shift 133
+	BREAK  shift 134
+	CONTINUE  shift 135
+	GOTO  shift 136
+	IF  shift 129
+	ELSE  shift 130
+	SWITCH  shift 131
+	RETURN  shift 126
+	FALLTHROUGH  shift 137
+	SAFE  shift 138
+	LBRACE  shift 90
+	NEW_ASSIGN  shift 128
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	for_  goto 104
+	range_  goto 105
+	break_  goto 106
+	continue_  goto 107
+	goto_  goto 108
+	if_  goto 101
+	else_  goto 102
+	switch_  goto 103
+	return_  goto 98
+	fallthrough_  goto 109
+	safe  goto 110
+	id  goto 47
+	expr  goto 97
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	statement  goto 218
+	block  goto 96
+	symbol  goto 125
+	var_assign  goto 99
+	new_assign  goto 100
+
+state 147
+	statement:  block terminal.    (33)
+
+	.  reduce 33 (src line 455)
+
+
+state 148
+	statement:  expr terminal.    (34)
+
+	.  reduce 34 (src line 455)
+
+
+state 149
+	binary_expr:  expr PLUS.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 219
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 150
+	binary_expr:  expr MINUS.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 220
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 151
+	binary_expr:  expr MUL.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 221
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 152
+	binary_expr:  expr DIV.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 222
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 153
+	binary_expr:  expr MOD.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 223
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 154
+	ternary_expr:  expr EQ.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 224
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 155
+	ternary_expr:  expr NEQ.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 225
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 156
+	ternary_expr:  expr LT.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 226
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 157
+	ternary_expr:  expr GT.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 227
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 158
+	ternary_expr:  expr LTE.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 228
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 159
+	ternary_expr:  expr GTE.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 229
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 160
+	ternary_expr:  expr NOT_AND.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 230
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 161
+	ternary_expr:  expr NOT_OR.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 231
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 162
+	assign_expr:  expr ASSIGN.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 232
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 163
+	assign_expr:  expr ADD_ASSIGN.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 233
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 164
+	assign_expr:  expr SUB_ASSIGN.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 234
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 165
+	assign_expr:  expr MUL_ASSIGN.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 235
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 166
+	assign_expr:  expr QUO_ASSIGN.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 236
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 167
+	assign_expr:  expr REM_ASSIGN.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 237
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 168
+	assign_expr:  expr AND_ASSIGN.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 238
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 169
+	assign_expr:  expr OR_ASSIGN.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 239
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 170
+	accessor_expr:  expr PERIOD.id 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 240
+
+state 171
+	index_expr:  expr LBRACK.expr RBRACK 
+	slice_expr:  expr LBRACK.expr COLON expr RBRACK 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 241
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 172
+	call_expr:  expr LPAREN.argument_list RPAREN 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 244
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	argument  goto 243
+	argument_list  goto 242
+	symbol  goto 125
+
+state 173
+	range_expr:  expr RANGE.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 245
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 174
+	channel_send_expr:  expr CHANNEL_SEND.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 246
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 175
+	channel_receive_expr:  expr NEW_ASSIGN.CHANNEL_SEND symbol 
+
+	CHANNEL_SEND  shift 247
+	.  error
+
+
+state 176
+	bridge_expr:  expr BRIDGE.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 248
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 177
+	transfer_expr:  expr TRANSFER.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 249
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 178
+	statement:  return_ terminal.    (35)
+
+	.  reduce 35 (src line 455)
+
+
+state 179
+	statement:  var_assign terminal.    (36)
+
+	.  reduce 36 (src line 455)
+
+
+state 180
+	statement:  new_assign terminal.    (37)
+
+	.  reduce 37 (src line 455)
+
+
+state 181
+	statement:  if_ terminal.    (38)
+
+	.  reduce 38 (src line 455)
+
+
+state 182
+	statement:  else_ terminal.    (39)
+
+	.  reduce 39 (src line 455)
+
+
+state 183
+	statement:  switch_ terminal.    (40)
+
+	.  reduce 40 (src line 455)
+
+
+state 184
+	statement:  for_ terminal.    (41)
+
+	.  reduce 41 (src line 455)
+
+
+state 185
+	statement:  range_ terminal.    (42)
+
+	.  reduce 42 (src line 455)
+
+
+state 186
+	statement:  break_ terminal.    (43)
+
+	.  reduce 43 (src line 455)
+
+
+state 187
+	statement:  continue_ terminal.    (44)
+
+	.  reduce 44 (src line 455)
+
+
+state 188
+	statement:  goto_ terminal.    (45)
+
+	.  reduce 45 (src line 455)
+
+
+state 189
+	statement:  fallthrough_ terminal.    (46)
+
+	.  reduce 46 (src line 455)
+
+
+state 190
+	statement:  safe terminal.    (47)
+
+	.  reduce 47 (src line 455)
+
+
+state 191
+	return_:  RETURN expr.terminal 
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	NEWLINE  shift 29
+	RANGE  shift 173
+	SEMICOLON  shift 28
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	PLUS  shift 149
+	MINUS  shift 150
+	MUL  shift 151
+	DIV  shift 152
+	MOD  shift 153
+	EQ  shift 154
+	NEQ  shift 155
+	LT  shift 156
+	GT  shift 157
+	LTE  shift 158
+	GTE  shift 159
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	EOF  shift 30
+	ILLEGAL  shift 31
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  error
+
+	terminal  goto 250
+
+state 192
+	return_:  RETURN terminal.    (68)
+
+	.  reduce 68 (src line 539)
+
+
+state 193
+	new_assign_expr:  NEW_ASSIGN.id ASSIGN expr 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 251
+
+state 194
+	var_assign:  VAR id.ASSIGN expr terminal 
+
+	ASSIGN  shift 252
+	.  error
+
+
+state 195
+	new_assign:  NEW_ASSIGN id.ASSIGN expr terminal 
+	new_assign_expr:  NEW_ASSIGN id.ASSIGN expr 
+
+	ASSIGN  shift 253
+	.  error
+
+
+state 196
+	if_:  IF expr.block 
+	if_:  IF expr.block else_ 
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LBRACE  shift 90
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	PLUS  shift 149
+	MINUS  shift 150
+	MUL  shift 151
+	DIV  shift 152
+	MOD  shift 153
+	EQ  shift 154
+	NEQ  shift 155
+	LT  shift 156
+	GT  shift 157
+	LTE  shift 158
+	GTE  shift 159
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  error
+
+	block  goto 254
+
+state 197
+	else_:  ELSE block.    (73)
+
+	.  reduce 73 (src line 559)
+
+
+state 198
+	else_:  ELSE if_.block 
+
+	LBRACE  shift 90
+	.  error
+
+	block  goto 255
+
+state 199
+	switch_:  SWITCH expr.LBRACE case_list RBRACE 
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LBRACE  shift 256
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	PLUS  shift 149
+	MINUS  shift 150
+	MUL  shift 151
+	DIV  shift 152
+	MOD  shift 153
+	EQ  shift 154
+	NEQ  shift 155
+	LT  shift 156
+	GT  shift 157
+	LTE  shift 158
+	GTE  shift 159
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  error
+
+
+200: shift/reduce conflict (shift 8(0), red'n 88(0)) on IDENTIFIER
+200: shift/reduce conflict (shift 193(10), red'n 88(0)) on NEW_ASSIGN
+200: shift/reduce conflict (shift 139(1), red'n 88(0)) on PLUS
+200: shift/reduce conflict (shift 140(1), red'n 88(0)) on MINUS
+200: shift/reduce conflict (shift 141(9), red'n 88(0)) on NOT
+state 200
+	for_:  FOR for_init.for_condition for_post block 
+	for_condition: .    (88)
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 258
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+	for_condition  goto 257
+
+201: shift/reduce conflict (shift 175(10), red'n 84(0)) on NEW_ASSIGN
+201: shift/reduce conflict (shift 149(1), red'n 84(0)) on PLUS
+201: shift/reduce conflict (shift 150(1), red'n 84(0)) on MINUS
+ 201: reduce/reduce conflict  (red'ns 84 and 89) on IDENTIFIER
+201: shift/reduce conflict (shift 175(10), red'n 89(0)) on NEW_ASSIGN
+201: shift/reduce conflict (shift 149(1), red'n 89(0)) on PLUS
+201: shift/reduce conflict (shift 150(1), red'n 89(0)) on MINUS
+ 201: reduce/reduce conflict  (red'ns 84 and 89) on NOT
+state 201
+	for_init:  expr.    (84)
+	for_condition:  expr.    (89)
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	PLUS  shift 149
+	MINUS  shift 150
+	MUL  shift 151
+	DIV  shift 152
+	MOD  shift 153
+	EQ  shift 154
+	NEQ  shift 155
+	LT  shift 156
+	GT  shift 157
+	LTE  shift 158
+	GTE  shift 159
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 84 (src line 595)
+
+
+state 202
+	for_init:  var_assign.    (85)
+
+	.  reduce 85 (src line 596)
+
+
+state 203
+	for_init:  new_assign.    (86)
+
+	.  reduce 86 (src line 597)
+
+
+ 204: reduce/reduce conflict  (red'ns 87 and 90) on IDENTIFIER
+ 204: reduce/reduce conflict  (red'ns 87 and 90) on NEW_ASSIGN
+ 204: reduce/reduce conflict  (red'ns 87 and 90) on PLUS
+ 204: reduce/reduce conflict  (red'ns 87 and 90) on MINUS
+ 204: reduce/reduce conflict  (red'ns 87 and 90) on NOT
+state 204
+	for_init:  for_condition.    (87)
+	for_condition:  for_condition.    (90)
+
+	.  reduce 87 (src line 598)
+
+
+state 205
+	range_:  RANGE expr.block 
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LBRACE  shift 90
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	PLUS  shift 149
+	MINUS  shift 150
+	MUL  shift 151
+	DIV  shift 152
+	MOD  shift 153
+	EQ  shift 154
+	NEQ  shift 155
+	LT  shift 156
+	GT  shift 157
+	LTE  shift 158
+	GTE  shift 159
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  error
+
+	block  goto 259
+
+state 206
+	break_:  BREAK terminal.    (94)
+
+	.  reduce 94 (src line 623)
+
+
+state 207
+	continue_:  CONTINUE terminal.    (95)
+
+	.  reduce 95 (src line 627)
+
+
+state 208
+	goto_:  GOTO id.terminal 
+
+	NEWLINE  shift 29
+	SEMICOLON  shift 28
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  error
+
+	terminal  goto 260
+
+state 209
+	fallthrough_:  FALLTHROUGH terminal.    (97)
+
+	.  reduce 97 (src line 636)
+
+
+state 210
+	safe:  SAFE terminal.    (98)
+
+	.  reduce 98 (src line 640)
+
+
+211: shift/reduce conflict (shift 173(0), red'n 114(1)) on RANGE
+211: shift/reduce conflict (shift 170(0), red'n 114(1)) on PERIOD
+211: shift/reduce conflict (shift 171(0), red'n 114(1)) on LBRACK
+211: shift/reduce conflict (shift 172(0), red'n 114(1)) on LPAREN
+211: shift/reduce conflict (shift 176(0), red'n 114(1)) on BRIDGE
+211: shift/reduce conflict (shift 174(0), red'n 114(1)) on CHANNEL_SEND
+211: shift/reduce conflict (shift 177(0), red'n 114(1)) on TRANSFER
+state 211
+	unary_expr:  PLUS expr.    (114)
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	MUL  shift 151
+	DIV  shift 152
+	MOD  shift 153
+	EQ  shift 154
+	NEQ  shift 155
+	LT  shift 156
+	GT  shift 157
+	LTE  shift 158
+	GTE  shift 159
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 114 (src line 649)
+
+
+212: shift/reduce conflict (shift 173(0), red'n 115(1)) on RANGE
+212: shift/reduce conflict (shift 170(0), red'n 115(1)) on PERIOD
+212: shift/reduce conflict (shift 171(0), red'n 115(1)) on LBRACK
+212: shift/reduce conflict (shift 172(0), red'n 115(1)) on LPAREN
+212: shift/reduce conflict (shift 176(0), red'n 115(1)) on BRIDGE
+212: shift/reduce conflict (shift 174(0), red'n 115(1)) on CHANNEL_SEND
+212: shift/reduce conflict (shift 177(0), red'n 115(1)) on TRANSFER
+state 212
+	unary_expr:  MINUS expr.    (115)
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	MUL  shift 151
+	DIV  shift 152
+	MOD  shift 153
+	EQ  shift 154
+	NEQ  shift 155
+	LT  shift 156
+	GT  shift 157
+	LTE  shift 158
+	GTE  shift 159
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 115 (src line 650)
+
+
+213: shift/reduce conflict (shift 173(0), red'n 116(9)) on RANGE
+213: shift/reduce conflict (shift 170(0), red'n 116(9)) on PERIOD
+213: shift/reduce conflict (shift 171(0), red'n 116(9)) on LBRACK
+213: shift/reduce conflict (shift 172(0), red'n 116(9)) on LPAREN
+213: shift/reduce conflict (shift 176(0), red'n 116(9)) on BRIDGE
+213: shift/reduce conflict (shift 174(0), red'n 116(9)) on CHANNEL_SEND
+213: shift/reduce conflict (shift 177(0), red'n 116(9)) on TRANSFER
+state 213
+	unary_expr:  NOT expr.    (116)
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 116 (src line 651)
+
+
+state 214
+	method:  FUNC symbol template_params PERIOD id LPAREN parameter_list RPAREN return_params.block 
+
+	LBRACE  shift 90
+	.  error
+
+	block  goto 261
+
+state 215
+	return_params:  parameter.    (25)
+
+	.  reduce 25 (src line 424)
+
+
+state 216
+	return_params:  LPAREN.parameter_list RPAREN 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 55
+	parameter  goto 54
+	parameter_list  goto 262
+
+state 217
+	interface_method:  id symbol LPAREN parameter_list RPAREN return_params.    (65)
+
+	.  reduce 65 (src line 525)
+
+
+state 218
+	statement_list:  statement_list terminal statement.    (32)
+
+	.  reduce 32 (src line 449)
+
+
+219: shift/reduce conflict (shift 173(0), red'n 117(1)) on RANGE
+219: shift/reduce conflict (shift 170(0), red'n 117(1)) on PERIOD
+219: shift/reduce conflict (shift 171(0), red'n 117(1)) on LBRACK
+219: shift/reduce conflict (shift 172(0), red'n 117(1)) on LPAREN
+219: shift/reduce conflict (shift 176(0), red'n 117(1)) on BRIDGE
+219: shift/reduce conflict (shift 174(0), red'n 117(1)) on CHANNEL_SEND
+219: shift/reduce conflict (shift 177(0), red'n 117(1)) on TRANSFER
+state 219
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr PLUS expr.    (117)
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	MUL  shift 151
+	DIV  shift 152
+	MOD  shift 153
+	EQ  shift 154
+	NEQ  shift 155
+	LT  shift 156
+	GT  shift 157
+	LTE  shift 158
+	GTE  shift 159
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 117 (src line 653)
+
+
+220: shift/reduce conflict (shift 173(0), red'n 118(1)) on RANGE
+220: shift/reduce conflict (shift 170(0), red'n 118(1)) on PERIOD
+220: shift/reduce conflict (shift 171(0), red'n 118(1)) on LBRACK
+220: shift/reduce conflict (shift 172(0), red'n 118(1)) on LPAREN
+220: shift/reduce conflict (shift 176(0), red'n 118(1)) on BRIDGE
+220: shift/reduce conflict (shift 174(0), red'n 118(1)) on CHANNEL_SEND
+220: shift/reduce conflict (shift 177(0), red'n 118(1)) on TRANSFER
+state 220
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr MINUS expr.    (118)
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	MUL  shift 151
+	DIV  shift 152
+	MOD  shift 153
+	EQ  shift 154
+	NEQ  shift 155
+	LT  shift 156
+	GT  shift 157
+	LTE  shift 158
+	GTE  shift 159
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 118 (src line 653)
+
+
+221: shift/reduce conflict (shift 173(0), red'n 119(2)) on RANGE
+221: shift/reduce conflict (shift 170(0), red'n 119(2)) on PERIOD
+221: shift/reduce conflict (shift 171(0), red'n 119(2)) on LBRACK
+221: shift/reduce conflict (shift 172(0), red'n 119(2)) on LPAREN
+221: shift/reduce conflict (shift 176(0), red'n 119(2)) on BRIDGE
+221: shift/reduce conflict (shift 174(0), red'n 119(2)) on CHANNEL_SEND
+221: shift/reduce conflict (shift 177(0), red'n 119(2)) on TRANSFER
+state 221
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr MUL expr.    (119)
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	EQ  shift 154
+	NEQ  shift 155
+	LT  shift 156
+	GT  shift 157
+	LTE  shift 158
+	GTE  shift 159
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 119 (src line 653)
+
+
+222: shift/reduce conflict (shift 173(0), red'n 120(2)) on RANGE
+222: shift/reduce conflict (shift 170(0), red'n 120(2)) on PERIOD
+222: shift/reduce conflict (shift 171(0), red'n 120(2)) on LBRACK
+222: shift/reduce conflict (shift 172(0), red'n 120(2)) on LPAREN
+222: shift/reduce conflict (shift 176(0), red'n 120(2)) on BRIDGE
+222: shift/reduce conflict (shift 174(0), red'n 120(2)) on CHANNEL_SEND
+222: shift/reduce conflict (shift 177(0), red'n 120(2)) on TRANSFER
+state 222
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr DIV expr.    (120)
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	EQ  shift 154
+	NEQ  shift 155
+	LT  shift 156
+	GT  shift 157
+	LTE  shift 158
+	GTE  shift 159
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 120 (src line 653)
+
+
+223: shift/reduce conflict (shift 173(0), red'n 121(2)) on RANGE
+223: shift/reduce conflict (shift 170(0), red'n 121(2)) on PERIOD
+223: shift/reduce conflict (shift 171(0), red'n 121(2)) on LBRACK
+223: shift/reduce conflict (shift 172(0), red'n 121(2)) on LPAREN
+223: shift/reduce conflict (shift 176(0), red'n 121(2)) on BRIDGE
+223: shift/reduce conflict (shift 174(0), red'n 121(2)) on CHANNEL_SEND
+223: shift/reduce conflict (shift 177(0), red'n 121(2)) on TRANSFER
+state 223
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	binary_expr:  expr MOD expr.    (121)
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	EQ  shift 154
+	NEQ  shift 155
+	LT  shift 156
+	GT  shift 157
+	LTE  shift 158
+	GTE  shift 159
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 121 (src line 653)
+
+
+224: shift/reduce conflict (shift 173(0), red'n 122(3)) on RANGE
+224: shift/reduce conflict (shift 170(0), red'n 122(3)) on PERIOD
+224: shift/reduce conflict (shift 171(0), red'n 122(3)) on LBRACK
+224: shift/reduce conflict (shift 172(0), red'n 122(3)) on LPAREN
+224: shift/reduce conflict (shift 176(0), red'n 122(3)) on BRIDGE
+224: shift/reduce conflict (shift 174(0), red'n 122(3)) on CHANNEL_SEND
+224: shift/reduce conflict (shift 177(0), red'n 122(3)) on TRANSFER
+state 224
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr EQ expr.    (122)
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 122 (src line 659)
+
+
+225: shift/reduce conflict (shift 173(0), red'n 123(3)) on RANGE
+225: shift/reduce conflict (shift 170(0), red'n 123(3)) on PERIOD
+225: shift/reduce conflict (shift 171(0), red'n 123(3)) on LBRACK
+225: shift/reduce conflict (shift 172(0), red'n 123(3)) on LPAREN
+225: shift/reduce conflict (shift 176(0), red'n 123(3)) on BRIDGE
+225: shift/reduce conflict (shift 174(0), red'n 123(3)) on CHANNEL_SEND
+225: shift/reduce conflict (shift 177(0), red'n 123(3)) on TRANSFER
+state 225
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr NEQ expr.    (123)
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 123 (src line 659)
+
+
+226: shift/reduce conflict (shift 173(0), red'n 124(3)) on RANGE
+226: shift/reduce conflict (shift 170(0), red'n 124(3)) on PERIOD
+226: shift/reduce conflict (shift 171(0), red'n 124(3)) on LBRACK
+226: shift/reduce conflict (shift 172(0), red'n 124(3)) on LPAREN
+226: shift/reduce conflict (shift 176(0), red'n 124(3)) on BRIDGE
+226: shift/reduce conflict (shift 174(0), red'n 124(3)) on CHANNEL_SEND
+226: shift/reduce conflict (shift 177(0), red'n 124(3)) on TRANSFER
+state 226
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr LT expr.    (124)
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 124 (src line 659)
+
+
+227: shift/reduce conflict (shift 173(0), red'n 125(3)) on RANGE
+227: shift/reduce conflict (shift 170(0), red'n 125(3)) on PERIOD
+227: shift/reduce conflict (shift 171(0), red'n 125(3)) on LBRACK
+227: shift/reduce conflict (shift 172(0), red'n 125(3)) on LPAREN
+227: shift/reduce conflict (shift 176(0), red'n 125(3)) on BRIDGE
+227: shift/reduce conflict (shift 174(0), red'n 125(3)) on CHANNEL_SEND
+227: shift/reduce conflict (shift 177(0), red'n 125(3)) on TRANSFER
+state 227
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr GT expr.    (125)
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 125 (src line 659)
+
+
+228: shift/reduce conflict (shift 173(0), red'n 126(3)) on RANGE
+228: shift/reduce conflict (shift 170(0), red'n 126(3)) on PERIOD
+228: shift/reduce conflict (shift 171(0), red'n 126(3)) on LBRACK
+228: shift/reduce conflict (shift 172(0), red'n 126(3)) on LPAREN
+228: shift/reduce conflict (shift 176(0), red'n 126(3)) on BRIDGE
+228: shift/reduce conflict (shift 174(0), red'n 126(3)) on CHANNEL_SEND
+228: shift/reduce conflict (shift 177(0), red'n 126(3)) on TRANSFER
+state 228
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr LTE expr.    (126)
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 126 (src line 659)
+
+
+229: shift/reduce conflict (shift 173(0), red'n 127(3)) on RANGE
+229: shift/reduce conflict (shift 170(0), red'n 127(3)) on PERIOD
+229: shift/reduce conflict (shift 171(0), red'n 127(3)) on LBRACK
+229: shift/reduce conflict (shift 172(0), red'n 127(3)) on LPAREN
+229: shift/reduce conflict (shift 176(0), red'n 127(3)) on BRIDGE
+229: shift/reduce conflict (shift 174(0), red'n 127(3)) on CHANNEL_SEND
+229: shift/reduce conflict (shift 177(0), red'n 127(3)) on TRANSFER
+state 229
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr GTE expr.    (127)
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 127 (src line 659)
+
+
+230: shift/reduce conflict (shift 173(0), red'n 128(4)) on RANGE
+230: shift/reduce conflict (shift 170(0), red'n 128(4)) on PERIOD
+230: shift/reduce conflict (shift 171(0), red'n 128(4)) on LBRACK
+230: shift/reduce conflict (shift 172(0), red'n 128(4)) on LPAREN
+230: shift/reduce conflict (shift 176(0), red'n 128(4)) on BRIDGE
+230: shift/reduce conflict (shift 174(0), red'n 128(4)) on CHANNEL_SEND
+230: shift/reduce conflict (shift 177(0), red'n 128(4)) on TRANSFER
+state 230
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr NOT_AND expr.    (128)
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 128 (src line 659)
+
+
+231: shift/reduce conflict (shift 173(0), red'n 129(4)) on RANGE
+231: shift/reduce conflict (shift 170(0), red'n 129(4)) on PERIOD
+231: shift/reduce conflict (shift 171(0), red'n 129(4)) on LBRACK
+231: shift/reduce conflict (shift 172(0), red'n 129(4)) on LPAREN
+231: shift/reduce conflict (shift 176(0), red'n 129(4)) on BRIDGE
+231: shift/reduce conflict (shift 174(0), red'n 129(4)) on CHANNEL_SEND
+231: shift/reduce conflict (shift 177(0), red'n 129(4)) on TRANSFER
+state 231
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	ternary_expr:  expr NOT_OR expr.    (129)
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 129 (src line 659)
+
+
+232: shift/reduce conflict (shift 173(0), red'n 130(10)) on RANGE
+232: shift/reduce conflict (shift 170(0), red'n 130(10)) on PERIOD
+232: shift/reduce conflict (shift 171(0), red'n 130(10)) on LBRACK
+232: shift/reduce conflict (shift 172(0), red'n 130(10)) on LPAREN
+232: shift/reduce conflict (shift 176(0), red'n 130(10)) on BRIDGE
+232: shift/reduce conflict (shift 174(0), red'n 130(10)) on CHANNEL_SEND
+232: shift/reduce conflict (shift 177(0), red'n 130(10)) on TRANSFER
+state 232
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr ASSIGN expr.    (130)
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 130 (src line 665)
+
+
+233: shift/reduce conflict (shift 173(0), red'n 131(10)) on RANGE
+233: shift/reduce conflict (shift 170(0), red'n 131(10)) on PERIOD
+233: shift/reduce conflict (shift 171(0), red'n 131(10)) on LBRACK
+233: shift/reduce conflict (shift 172(0), red'n 131(10)) on LPAREN
+233: shift/reduce conflict (shift 176(0), red'n 131(10)) on BRIDGE
+233: shift/reduce conflict (shift 174(0), red'n 131(10)) on CHANNEL_SEND
+233: shift/reduce conflict (shift 177(0), red'n 131(10)) on TRANSFER
+state 233
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr ADD_ASSIGN expr.    (131)
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 131 (src line 665)
+
+
+234: shift/reduce conflict (shift 173(0), red'n 132(10)) on RANGE
+234: shift/reduce conflict (shift 170(0), red'n 132(10)) on PERIOD
+234: shift/reduce conflict (shift 171(0), red'n 132(10)) on LBRACK
+234: shift/reduce conflict (shift 172(0), red'n 132(10)) on LPAREN
+234: shift/reduce conflict (shift 176(0), red'n 132(10)) on BRIDGE
+234: shift/reduce conflict (shift 174(0), red'n 132(10)) on CHANNEL_SEND
+234: shift/reduce conflict (shift 177(0), red'n 132(10)) on TRANSFER
+state 234
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr SUB_ASSIGN expr.    (132)
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 132 (src line 665)
+
+
+235: shift/reduce conflict (shift 173(0), red'n 133(10)) on RANGE
+235: shift/reduce conflict (shift 170(0), red'n 133(10)) on PERIOD
+235: shift/reduce conflict (shift 171(0), red'n 133(10)) on LBRACK
+235: shift/reduce conflict (shift 172(0), red'n 133(10)) on LPAREN
+235: shift/reduce conflict (shift 176(0), red'n 133(10)) on BRIDGE
+235: shift/reduce conflict (shift 174(0), red'n 133(10)) on CHANNEL_SEND
+235: shift/reduce conflict (shift 177(0), red'n 133(10)) on TRANSFER
+state 235
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr MUL_ASSIGN expr.    (133)
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 133 (src line 665)
+
+
+236: shift/reduce conflict (shift 173(0), red'n 134(10)) on RANGE
+236: shift/reduce conflict (shift 170(0), red'n 134(10)) on PERIOD
+236: shift/reduce conflict (shift 171(0), red'n 134(10)) on LBRACK
+236: shift/reduce conflict (shift 172(0), red'n 134(10)) on LPAREN
+236: shift/reduce conflict (shift 176(0), red'n 134(10)) on BRIDGE
+236: shift/reduce conflict (shift 174(0), red'n 134(10)) on CHANNEL_SEND
+236: shift/reduce conflict (shift 177(0), red'n 134(10)) on TRANSFER
+state 236
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr QUO_ASSIGN expr.    (134)
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 134 (src line 665)
+
+
+237: shift/reduce conflict (shift 173(0), red'n 135(10)) on RANGE
+237: shift/reduce conflict (shift 170(0), red'n 135(10)) on PERIOD
+237: shift/reduce conflict (shift 171(0), red'n 135(10)) on LBRACK
+237: shift/reduce conflict (shift 172(0), red'n 135(10)) on LPAREN
+237: shift/reduce conflict (shift 176(0), red'n 135(10)) on BRIDGE
+237: shift/reduce conflict (shift 174(0), red'n 135(10)) on CHANNEL_SEND
+237: shift/reduce conflict (shift 177(0), red'n 135(10)) on TRANSFER
+state 237
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr REM_ASSIGN expr.    (135)
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 135 (src line 665)
+
+
+238: shift/reduce conflict (shift 173(0), red'n 136(10)) on RANGE
+238: shift/reduce conflict (shift 170(0), red'n 136(10)) on PERIOD
+238: shift/reduce conflict (shift 171(0), red'n 136(10)) on LBRACK
+238: shift/reduce conflict (shift 172(0), red'n 136(10)) on LPAREN
+238: shift/reduce conflict (shift 176(0), red'n 136(10)) on BRIDGE
+238: shift/reduce conflict (shift 174(0), red'n 136(10)) on CHANNEL_SEND
+238: shift/reduce conflict (shift 177(0), red'n 136(10)) on TRANSFER
+state 238
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr AND_ASSIGN expr.    (136)
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 136 (src line 665)
+
+
+239: shift/reduce conflict (shift 173(0), red'n 137(10)) on RANGE
+239: shift/reduce conflict (shift 170(0), red'n 137(10)) on PERIOD
+239: shift/reduce conflict (shift 171(0), red'n 137(10)) on LBRACK
+239: shift/reduce conflict (shift 172(0), red'n 137(10)) on LPAREN
+239: shift/reduce conflict (shift 176(0), red'n 137(10)) on BRIDGE
+239: shift/reduce conflict (shift 174(0), red'n 137(10)) on CHANNEL_SEND
+239: shift/reduce conflict (shift 177(0), red'n 137(10)) on TRANSFER
+state 239
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	assign_expr:  expr OR_ASSIGN expr.    (137)
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 137 (src line 665)
+
+
+state 240
+	accessor_expr:  expr PERIOD id.    (139)
+
+	.  reduce 139 (src line 677)
+
+
+state 241
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	index_expr:  expr LBRACK expr.RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	slice_expr:  expr LBRACK expr.COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	COLON  shift 264
+	PERIOD  shift 170
+	LBRACK  shift 171
+	RBRACK  shift 263
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	PLUS  shift 149
+	MINUS  shift 150
+	MUL  shift 151
+	DIV  shift 152
+	MOD  shift 153
+	EQ  shift 154
+	NEQ  shift 155
+	LT  shift 156
+	GT  shift 157
+	LTE  shift 158
+	GTE  shift 159
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  error
+
+
+state 242
+	call_expr:  expr LPAREN argument_list.RPAREN 
+	argument_list:  argument_list.COMMA argument 
+
+	COMMA  shift 266
+	RPAREN  shift 265
+	.  error
+
+
+state 243
+	argument_list:  argument.    (156)
+
+	.  reduce 156 (src line 795)
+
+
+state 244
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+	argument:  expr.    (155)
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	PLUS  shift 149
+	MINUS  shift 150
+	MUL  shift 151
+	DIV  shift 152
+	MOD  shift 153
+	EQ  shift 154
+	NEQ  shift 155
+	LT  shift 156
+	GT  shift 157
+	LTE  shift 158
+	GTE  shift 159
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 155 (src line 789)
+
+
+245: shift/reduce conflict (shift 173(0), red'n 147(0)) on RANGE
+245: shift/reduce conflict (shift 170(0), red'n 147(0)) on PERIOD
+245: shift/reduce conflict (shift 171(0), red'n 147(0)) on LBRACK
+245: shift/reduce conflict (shift 172(0), red'n 147(0)) on LPAREN
+245: shift/reduce conflict (shift 162(10), red'n 147(0)) on ASSIGN
+245: shift/reduce conflict (shift 175(10), red'n 147(0)) on NEW_ASSIGN
+245: shift/reduce conflict (shift 163(10), red'n 147(0)) on ADD_ASSIGN
+245: shift/reduce conflict (shift 164(10), red'n 147(0)) on SUB_ASSIGN
+245: shift/reduce conflict (shift 165(10), red'n 147(0)) on MUL_ASSIGN
+245: shift/reduce conflict (shift 166(10), red'n 147(0)) on QUO_ASSIGN
+245: shift/reduce conflict (shift 167(10), red'n 147(0)) on REM_ASSIGN
+245: shift/reduce conflict (shift 168(10), red'n 147(0)) on AND_ASSIGN
+245: shift/reduce conflict (shift 169(10), red'n 147(0)) on OR_ASSIGN
+245: shift/reduce conflict (shift 149(1), red'n 147(0)) on PLUS
+245: shift/reduce conflict (shift 150(1), red'n 147(0)) on MINUS
+245: shift/reduce conflict (shift 151(2), red'n 147(0)) on MUL
+245: shift/reduce conflict (shift 152(2), red'n 147(0)) on DIV
+245: shift/reduce conflict (shift 153(2), red'n 147(0)) on MOD
+245: shift/reduce conflict (shift 154(3), red'n 147(0)) on EQ
+245: shift/reduce conflict (shift 155(3), red'n 147(0)) on NEQ
+245: shift/reduce conflict (shift 156(3), red'n 147(0)) on LT
+245: shift/reduce conflict (shift 157(3), red'n 147(0)) on GT
+245: shift/reduce conflict (shift 158(3), red'n 147(0)) on LTE
+245: shift/reduce conflict (shift 159(3), red'n 147(0)) on GTE
+245: shift/reduce conflict (shift 160(4), red'n 147(0)) on NOT_AND
+245: shift/reduce conflict (shift 161(4), red'n 147(0)) on NOT_OR
+245: shift/reduce conflict (shift 176(0), red'n 147(0)) on BRIDGE
+245: shift/reduce conflict (shift 174(0), red'n 147(0)) on CHANNEL_SEND
+245: shift/reduce conflict (shift 177(0), red'n 147(0)) on TRANSFER
+state 245
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	range_expr:  expr RANGE expr.    (147)
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	PLUS  shift 149
+	MINUS  shift 150
+	MUL  shift 151
+	DIV  shift 152
+	MOD  shift 153
+	EQ  shift 154
+	NEQ  shift 155
+	LT  shift 156
+	GT  shift 157
+	LTE  shift 158
+	GTE  shift 159
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 147 (src line 730)
+
+
+246: shift/reduce conflict (shift 173(0), red'n 149(0)) on RANGE
+246: shift/reduce conflict (shift 170(0), red'n 149(0)) on PERIOD
+246: shift/reduce conflict (shift 171(0), red'n 149(0)) on LBRACK
+246: shift/reduce conflict (shift 172(0), red'n 149(0)) on LPAREN
+246: shift/reduce conflict (shift 162(10), red'n 149(0)) on ASSIGN
+246: shift/reduce conflict (shift 175(10), red'n 149(0)) on NEW_ASSIGN
+246: shift/reduce conflict (shift 163(10), red'n 149(0)) on ADD_ASSIGN
+246: shift/reduce conflict (shift 164(10), red'n 149(0)) on SUB_ASSIGN
+246: shift/reduce conflict (shift 165(10), red'n 149(0)) on MUL_ASSIGN
+246: shift/reduce conflict (shift 166(10), red'n 149(0)) on QUO_ASSIGN
+246: shift/reduce conflict (shift 167(10), red'n 149(0)) on REM_ASSIGN
+246: shift/reduce conflict (shift 168(10), red'n 149(0)) on AND_ASSIGN
+246: shift/reduce conflict (shift 169(10), red'n 149(0)) on OR_ASSIGN
+246: shift/reduce conflict (shift 149(1), red'n 149(0)) on PLUS
+246: shift/reduce conflict (shift 150(1), red'n 149(0)) on MINUS
+246: shift/reduce conflict (shift 151(2), red'n 149(0)) on MUL
+246: shift/reduce conflict (shift 152(2), red'n 149(0)) on DIV
+246: shift/reduce conflict (shift 153(2), red'n 149(0)) on MOD
+246: shift/reduce conflict (shift 154(3), red'n 149(0)) on EQ
+246: shift/reduce conflict (shift 155(3), red'n 149(0)) on NEQ
+246: shift/reduce conflict (shift 156(3), red'n 149(0)) on LT
+246: shift/reduce conflict (shift 157(3), red'n 149(0)) on GT
+246: shift/reduce conflict (shift 158(3), red'n 149(0)) on LTE
+246: shift/reduce conflict (shift 159(3), red'n 149(0)) on GTE
+246: shift/reduce conflict (shift 160(4), red'n 149(0)) on NOT_AND
+246: shift/reduce conflict (shift 161(4), red'n 149(0)) on NOT_OR
+246: shift/reduce conflict (shift 176(0), red'n 149(0)) on BRIDGE
+246: shift/reduce conflict (shift 174(0), red'n 149(0)) on CHANNEL_SEND
+246: shift/reduce conflict (shift 177(0), red'n 149(0)) on TRANSFER
+state 246
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_send_expr:  expr CHANNEL_SEND expr.    (149)
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	PLUS  shift 149
+	MINUS  shift 150
+	MUL  shift 151
+	DIV  shift 152
+	MOD  shift 153
+	EQ  shift 154
+	NEQ  shift 155
+	LT  shift 156
+	GT  shift 157
+	LTE  shift 158
+	GTE  shift 159
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 149 (src line 745)
+
+
+state 247
+	channel_receive_expr:  expr NEW_ASSIGN CHANNEL_SEND.symbol 
+
+	IDENTIFIER  shift 8
+	.  error
+
+	id  goto 47
+	symbol  goto 267
+
+248: shift/reduce conflict (shift 173(0), red'n 151(0)) on RANGE
+248: shift/reduce conflict (shift 170(0), red'n 151(0)) on PERIOD
+248: shift/reduce conflict (shift 171(0), red'n 151(0)) on LBRACK
+248: shift/reduce conflict (shift 172(0), red'n 151(0)) on LPAREN
+248: shift/reduce conflict (shift 162(10), red'n 151(0)) on ASSIGN
+248: shift/reduce conflict (shift 175(10), red'n 151(0)) on NEW_ASSIGN
+248: shift/reduce conflict (shift 163(10), red'n 151(0)) on ADD_ASSIGN
+248: shift/reduce conflict (shift 164(10), red'n 151(0)) on SUB_ASSIGN
+248: shift/reduce conflict (shift 165(10), red'n 151(0)) on MUL_ASSIGN
+248: shift/reduce conflict (shift 166(10), red'n 151(0)) on QUO_ASSIGN
+248: shift/reduce conflict (shift 167(10), red'n 151(0)) on REM_ASSIGN
+248: shift/reduce conflict (shift 168(10), red'n 151(0)) on AND_ASSIGN
+248: shift/reduce conflict (shift 169(10), red'n 151(0)) on OR_ASSIGN
+248: shift/reduce conflict (shift 149(1), red'n 151(0)) on PLUS
+248: shift/reduce conflict (shift 150(1), red'n 151(0)) on MINUS
+248: shift/reduce conflict (shift 151(2), red'n 151(0)) on MUL
+248: shift/reduce conflict (shift 152(2), red'n 151(0)) on DIV
+248: shift/reduce conflict (shift 153(2), red'n 151(0)) on MOD
+248: shift/reduce conflict (shift 154(3), red'n 151(0)) on EQ
+248: shift/reduce conflict (shift 155(3), red'n 151(0)) on NEQ
+248: shift/reduce conflict (shift 156(3), red'n 151(0)) on LT
+248: shift/reduce conflict (shift 157(3), red'n 151(0)) on GT
+248: shift/reduce conflict (shift 158(3), red'n 151(0)) on LTE
+248: shift/reduce conflict (shift 159(3), red'n 151(0)) on GTE
+248: shift/reduce conflict (shift 160(4), red'n 151(0)) on NOT_AND
+248: shift/reduce conflict (shift 161(4), red'n 151(0)) on NOT_OR
+248: shift/reduce conflict (shift 176(0), red'n 151(0)) on BRIDGE
+248: shift/reduce conflict (shift 174(0), red'n 151(0)) on CHANNEL_SEND
+248: shift/reduce conflict (shift 177(0), red'n 151(0)) on TRANSFER
+state 248
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	bridge_expr:  expr BRIDGE expr.    (151)
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	PLUS  shift 149
+	MINUS  shift 150
+	MUL  shift 151
+	DIV  shift 152
+	MOD  shift 153
+	EQ  shift 154
+	NEQ  shift 155
+	LT  shift 156
+	GT  shift 157
+	LTE  shift 158
+	GTE  shift 159
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 151 (src line 763)
+
+
+249: shift/reduce conflict (shift 173(0), red'n 152(0)) on RANGE
+249: shift/reduce conflict (shift 170(0), red'n 152(0)) on PERIOD
+249: shift/reduce conflict (shift 171(0), red'n 152(0)) on LBRACK
+249: shift/reduce conflict (shift 172(0), red'n 152(0)) on LPAREN
+249: shift/reduce conflict (shift 162(10), red'n 152(0)) on ASSIGN
+249: shift/reduce conflict (shift 175(10), red'n 152(0)) on NEW_ASSIGN
+249: shift/reduce conflict (shift 163(10), red'n 152(0)) on ADD_ASSIGN
+249: shift/reduce conflict (shift 164(10), red'n 152(0)) on SUB_ASSIGN
+249: shift/reduce conflict (shift 165(10), red'n 152(0)) on MUL_ASSIGN
+249: shift/reduce conflict (shift 166(10), red'n 152(0)) on QUO_ASSIGN
+249: shift/reduce conflict (shift 167(10), red'n 152(0)) on REM_ASSIGN
+249: shift/reduce conflict (shift 168(10), red'n 152(0)) on AND_ASSIGN
+249: shift/reduce conflict (shift 169(10), red'n 152(0)) on OR_ASSIGN
+249: shift/reduce conflict (shift 149(1), red'n 152(0)) on PLUS
+249: shift/reduce conflict (shift 150(1), red'n 152(0)) on MINUS
+249: shift/reduce conflict (shift 151(2), red'n 152(0)) on MUL
+249: shift/reduce conflict (shift 152(2), red'n 152(0)) on DIV
+249: shift/reduce conflict (shift 153(2), red'n 152(0)) on MOD
+249: shift/reduce conflict (shift 154(3), red'n 152(0)) on EQ
+249: shift/reduce conflict (shift 155(3), red'n 152(0)) on NEQ
+249: shift/reduce conflict (shift 156(3), red'n 152(0)) on LT
+249: shift/reduce conflict (shift 157(3), red'n 152(0)) on GT
+249: shift/reduce conflict (shift 158(3), red'n 152(0)) on LTE
+249: shift/reduce conflict (shift 159(3), red'n 152(0)) on GTE
+249: shift/reduce conflict (shift 160(4), red'n 152(0)) on NOT_AND
+249: shift/reduce conflict (shift 161(4), red'n 152(0)) on NOT_OR
+249: shift/reduce conflict (shift 176(0), red'n 152(0)) on BRIDGE
+249: shift/reduce conflict (shift 174(0), red'n 152(0)) on CHANNEL_SEND
+249: shift/reduce conflict (shift 177(0), red'n 152(0)) on TRANSFER
+state 249
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+	transfer_expr:  expr TRANSFER expr.    (152)
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	PLUS  shift 149
+	MINUS  shift 150
+	MUL  shift 151
+	DIV  shift 152
+	MOD  shift 153
+	EQ  shift 154
+	NEQ  shift 155
+	LT  shift 156
+	GT  shift 157
+	LTE  shift 158
+	GTE  shift 159
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 152 (src line 770)
+
+
+state 250
+	return_:  RETURN expr terminal.    (67)
+
+	.  reduce 67 (src line 538)
+
+
+state 251
+	new_assign_expr:  NEW_ASSIGN id.ASSIGN expr 
+
+	ASSIGN  shift 268
+	.  error
+
+
+state 252
+	var_assign:  VAR id ASSIGN.expr terminal 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 269
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 253
+	new_assign:  NEW_ASSIGN id ASSIGN.expr terminal 
+	new_assign_expr:  NEW_ASSIGN id ASSIGN.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 270
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 254
+	if_:  IF expr block.    (71)
+	if_:  IF expr block.else_ 
+
+	ELSE  shift 130
+	.  reduce 71 (src line 555)
+
+	else_  goto 271
+
+state 255
+	else_:  ELSE if_ block.    (74)
+
+	.  reduce 74 (src line 560)
+
+
+state 256
+	switch_:  SWITCH expr LBRACE.case_list RBRACE 
+
+	CASE  shift 274
+	DEFAULT  shift 275
+	.  error
+
+	case_list  goto 272
+	case_clause  goto 273
+
+257: shift/reduce conflict (shift 8(0), red'n 90(0)) on IDENTIFIER
+257: shift/reduce conflict (shift 193(10), red'n 90(0)) on NEW_ASSIGN
+257: shift/reduce conflict (shift 139(1), red'n 90(0)) on PLUS
+257: shift/reduce conflict (shift 140(1), red'n 90(0)) on MINUS
+257: shift/reduce conflict (shift 141(9), red'n 90(0)) on NOT
+state 257
+	for_:  FOR for_init for_condition.for_post block 
+	for_condition:  for_condition.    (90)
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 277
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+	for_post  goto 276
+
+258: shift/reduce conflict (shift 175(10), red'n 89(0)) on NEW_ASSIGN
+258: shift/reduce conflict (shift 149(1), red'n 89(0)) on PLUS
+258: shift/reduce conflict (shift 150(1), red'n 89(0)) on MINUS
+state 258
+	for_condition:  expr.    (89)
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	PLUS  shift 149
+	MINUS  shift 150
+	MUL  shift 151
+	DIV  shift 152
+	MOD  shift 153
+	EQ  shift 154
+	NEQ  shift 155
+	LT  shift 156
+	GT  shift 157
+	LTE  shift 158
+	GTE  shift 159
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 89 (src line 604)
+
+
+state 259
+	range_:  RANGE expr block.    (93)
+
+	.  reduce 93 (src line 617)
+
+
+state 260
+	goto_:  GOTO id terminal.    (96)
+
+	.  reduce 96 (src line 631)
+
+
+state 261
+	method:  FUNC symbol template_params PERIOD id LPAREN parameter_list RPAREN return_params block.    (48)
+
+	.  reduce 48 (src line 461)
+
+
+state 262
+	return_params:  LPAREN parameter_list.RPAREN 
+	parameter_list:  parameter_list.COMMA parameter 
+
+	COMMA  shift 73
+	RPAREN  shift 278
+	.  error
+
+
+state 263
+	index_expr:  expr LBRACK expr RBRACK.    (140)
+
+	.  reduce 140 (src line 683)
+
+
+state 264
+	slice_expr:  expr LBRACK expr COLON.expr RBRACK 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 279
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 265
+	call_expr:  expr LPAREN argument_list RPAREN.    (142)
+
+	.  reduce 142 (src line 696)
+
+
+state 266
+	argument_list:  argument_list COMMA.argument 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 244
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	argument  goto 280
+	symbol  goto 125
+
+267: shift/reduce conflict (shift 45(0), red'n 150(0)) on PERIOD
+state 267
+	symbol:  symbol.PERIOD symbol 
+	channel_receive_expr:  expr NEW_ASSIGN CHANNEL_SEND symbol.    (150)
+
+	PERIOD  shift 45
+	.  reduce 150 (src line 752)
+
+
+state 268
+	new_assign_expr:  NEW_ASSIGN id ASSIGN.expr 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 281
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+
+state 269
+	var_assign:  VAR id ASSIGN expr.terminal 
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	NEWLINE  shift 29
+	RANGE  shift 173
+	SEMICOLON  shift 28
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	PLUS  shift 149
+	MINUS  shift 150
+	MUL  shift 151
+	DIV  shift 152
+	MOD  shift 153
+	EQ  shift 154
+	NEQ  shift 155
+	LT  shift 156
+	GT  shift 157
+	LTE  shift 158
+	GTE  shift 159
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	EOF  shift 30
+	ILLEGAL  shift 31
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  error
+
+	terminal  goto 282
+
+270: shift/reduce conflict (shift 29(0), red'n 138(10)) on NEWLINE
+270: shift/reduce conflict (shift 173(0), red'n 138(10)) on RANGE
+270: shift/reduce conflict (shift 28(0), red'n 138(10)) on SEMICOLON
+270: shift/reduce conflict (shift 170(0), red'n 138(10)) on PERIOD
+270: shift/reduce conflict (shift 171(0), red'n 138(10)) on LBRACK
+270: shift/reduce conflict (shift 172(0), red'n 138(10)) on LPAREN
+270: shift/reduce conflict (shift 30(0), red'n 138(10)) on EOF
+270: shift/reduce conflict (shift 31(0), red'n 138(10)) on ILLEGAL
+270: shift/reduce conflict (shift 176(0), red'n 138(10)) on BRIDGE
+270: shift/reduce conflict (shift 174(0), red'n 138(10)) on CHANNEL_SEND
+270: shift/reduce conflict (shift 177(0), red'n 138(10)) on TRANSFER
+state 270
+	new_assign:  NEW_ASSIGN id ASSIGN expr.terminal 
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	new_assign_expr:  NEW_ASSIGN id ASSIGN expr.    (138)
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	NEWLINE  shift 29
+	RANGE  shift 173
+	SEMICOLON  shift 28
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	EOF  shift 30
+	ILLEGAL  shift 31
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 138 (src line 671)
+
+	terminal  goto 283
+
+state 271
+	if_:  IF expr block else_.    (72)
+
+	.  reduce 72 (src line 556)
+
+
+state 272
+	switch_:  SWITCH expr LBRACE case_list.RBRACE 
+	case_list:  case_list.case_clause 
+
+	CASE  shift 274
+	DEFAULT  shift 275
+	RBRACE  shift 284
+	.  error
+
+	case_clause  goto 285
+
+state 273
+	case_list:  case_clause.    (76)
+
+	.  reduce 76 (src line 569)
+
+
+state 274
+	case_clause:  CASE.case_condition COLON statement_list 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 287
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+	case_condition  goto 286
+
+state 275
+	case_clause:  DEFAULT.COLON statement_list 
+
+	COLON  shift 288
+	.  error
+
+
+276: shift/reduce conflict (shift 90(0), red'n 92(0)) on LBRACE
+state 276
+	for_:  FOR for_init for_condition for_post.block 
+	for_post:  for_post.    (92)
+
+	LBRACE  shift 90
+	.  error
+
+	block  goto 289
+
+state 277
+	for_post:  expr.    (91)
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	PLUS  shift 149
+	MINUS  shift 150
+	MUL  shift 151
+	DIV  shift 152
+	MOD  shift 153
+	EQ  shift 154
+	NEQ  shift 155
+	LT  shift 156
+	GT  shift 157
+	LTE  shift 158
+	GTE  shift 159
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 91 (src line 611)
+
+
+state 278
+	return_params:  LPAREN parameter_list RPAREN.    (26)
+
+	.  reduce 26 (src line 424)
+
+
+state 279
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	slice_expr:  expr LBRACK expr COLON expr.RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	RBRACK  shift 290
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	PLUS  shift 149
+	MINUS  shift 150
+	MUL  shift 151
+	DIV  shift 152
+	MOD  shift 153
+	EQ  shift 154
+	NEQ  shift 155
+	LT  shift 156
+	GT  shift 157
+	LTE  shift 158
+	GTE  shift 159
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  error
+
+
+state 280
+	argument_list:  argument_list COMMA argument.    (157)
+
+	.  reduce 157 (src line 795)
+
+
+281: shift/reduce conflict (shift 173(0), red'n 138(10)) on RANGE
+281: shift/reduce conflict (shift 170(0), red'n 138(10)) on PERIOD
+281: shift/reduce conflict (shift 171(0), red'n 138(10)) on LBRACK
+281: shift/reduce conflict (shift 172(0), red'n 138(10)) on LPAREN
+281: shift/reduce conflict (shift 176(0), red'n 138(10)) on BRIDGE
+281: shift/reduce conflict (shift 174(0), red'n 138(10)) on CHANNEL_SEND
+281: shift/reduce conflict (shift 177(0), red'n 138(10)) on TRANSFER
+state 281
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	new_assign_expr:  NEW_ASSIGN id ASSIGN expr.    (138)
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 138 (src line 671)
+
+
+state 282
+	var_assign:  VAR id ASSIGN expr terminal.    (69)
+
+	.  reduce 69 (src line 542)
+
+
+state 283
+	new_assign:  NEW_ASSIGN id ASSIGN expr terminal.    (70)
+
+	.  reduce 70 (src line 548)
+
+
+state 284
+	switch_:  SWITCH expr LBRACE case_list RBRACE.    (75)
+
+	.  reduce 75 (src line 563)
+
+
+state 285
+	case_list:  case_list case_clause.    (77)
+
+	.  reduce 77 (src line 569)
+
+
+state 286
+	case_clause:  CASE case_condition.COLON statement_list 
+
+	COLON  shift 291
+	.  error
+
+
+state 287
+	case_condition:  expr.    (80)
+	case_condition:  expr.COMMA case_condition 
+	binary_expr:  expr.PLUS expr 
+	binary_expr:  expr.MINUS expr 
+	binary_expr:  expr.MUL expr 
+	binary_expr:  expr.DIV expr 
+	binary_expr:  expr.MOD expr 
+	ternary_expr:  expr.EQ expr 
+	ternary_expr:  expr.NEQ expr 
+	ternary_expr:  expr.LT expr 
+	ternary_expr:  expr.GT expr 
+	ternary_expr:  expr.LTE expr 
+	ternary_expr:  expr.GTE expr 
+	ternary_expr:  expr.NOT_AND expr 
+	ternary_expr:  expr.NOT_OR expr 
+	assign_expr:  expr.ASSIGN expr 
+	assign_expr:  expr.ADD_ASSIGN expr 
+	assign_expr:  expr.SUB_ASSIGN expr 
+	assign_expr:  expr.MUL_ASSIGN expr 
+	assign_expr:  expr.QUO_ASSIGN expr 
+	assign_expr:  expr.REM_ASSIGN expr 
+	assign_expr:  expr.AND_ASSIGN expr 
+	assign_expr:  expr.OR_ASSIGN expr 
+	accessor_expr:  expr.PERIOD id 
+	index_expr:  expr.LBRACK expr RBRACK 
+	slice_expr:  expr.LBRACK expr COLON expr RBRACK 
+	call_expr:  expr.LPAREN argument_list RPAREN 
+	range_expr:  expr.RANGE expr 
+	channel_send_expr:  expr.CHANNEL_SEND expr 
+	channel_receive_expr:  expr.NEW_ASSIGN CHANNEL_SEND symbol 
+	bridge_expr:  expr.BRIDGE expr 
+	transfer_expr:  expr.TRANSFER expr 
+
+	RANGE  shift 173
+	COMMA  shift 292
+	PERIOD  shift 170
+	LBRACK  shift 171
+	LPAREN  shift 172
+	ASSIGN  shift 162
+	NEW_ASSIGN  shift 175
+	ADD_ASSIGN  shift 163
+	SUB_ASSIGN  shift 164
+	MUL_ASSIGN  shift 165
+	QUO_ASSIGN  shift 166
+	REM_ASSIGN  shift 167
+	AND_ASSIGN  shift 168
+	OR_ASSIGN  shift 169
+	PLUS  shift 149
+	MINUS  shift 150
+	MUL  shift 151
+	DIV  shift 152
+	MOD  shift 153
+	EQ  shift 154
+	NEQ  shift 155
+	LT  shift 156
+	GT  shift 157
+	LTE  shift 158
+	GTE  shift 159
+	NOT_AND  shift 160
+	NOT_OR  shift 161
+	BRIDGE  shift 176
+	CHANNEL_SEND  shift 174
+	TRANSFER  shift 177
+	.  reduce 80 (src line 579)
+
+
+state 288
+	case_clause:  DEFAULT COLON.statement_list 
+
+	IDENTIFIER  shift 8
+	VAR  shift 127
+	FOR  shift 132
+	RANGE  shift 133
+	BREAK  shift 134
+	CONTINUE  shift 135
+	GOTO  shift 136
+	IF  shift 129
+	ELSE  shift 130
+	SWITCH  shift 131
+	RETURN  shift 126
+	FALLTHROUGH  shift 137
+	SAFE  shift 138
+	LBRACE  shift 90
+	NEW_ASSIGN  shift 128
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	for_  goto 104
+	range_  goto 105
+	break_  goto 106
+	continue_  goto 107
+	goto_  goto 108
+	if_  goto 101
+	else_  goto 102
+	switch_  goto 103
+	return_  goto 98
+	fallthrough_  goto 109
+	safe  goto 110
+	id  goto 47
+	expr  goto 97
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	statement  goto 95
+	block  goto 96
+	statement_list  goto 293
+	symbol  goto 125
+	var_assign  goto 99
+	new_assign  goto 100
+
+state 289
+	for_:  FOR for_init for_condition for_post block.    (82)
+
+	.  reduce 82 (src line 585)
+
+
+state 290
+	slice_expr:  expr LBRACK expr COLON expr RBRACK.    (141)
+
+	.  reduce 141 (src line 689)
+
+
+state 291
+	case_clause:  CASE case_condition COLON.statement_list 
+
+	IDENTIFIER  shift 8
+	VAR  shift 127
+	FOR  shift 132
+	RANGE  shift 133
+	BREAK  shift 134
+	CONTINUE  shift 135
+	GOTO  shift 136
+	IF  shift 129
+	ELSE  shift 130
+	SWITCH  shift 131
+	RETURN  shift 126
+	FALLTHROUGH  shift 137
+	SAFE  shift 138
+	LBRACE  shift 90
+	NEW_ASSIGN  shift 128
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	for_  goto 104
+	range_  goto 105
+	break_  goto 106
+	continue_  goto 107
+	goto_  goto 108
+	if_  goto 101
+	else_  goto 102
+	switch_  goto 103
+	return_  goto 98
+	fallthrough_  goto 109
+	safe  goto 110
+	id  goto 47
+	expr  goto 97
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	statement  goto 95
+	block  goto 96
+	statement_list  goto 294
+	symbol  goto 125
+	var_assign  goto 99
+	new_assign  goto 100
+
+state 292
+	case_condition:  expr COMMA.case_condition 
+
+	IDENTIFIER  shift 8
+	NEW_ASSIGN  shift 193
+	PLUS  shift 139
+	MINUS  shift 140
+	NOT  shift 141
+	.  error
+
+	id  goto 47
+	expr  goto 287
+	unary_expr  goto 111
+	binary_expr  goto 112
+	ternary_expr  goto 113
+	assign_expr  goto 114
+	new_assign_expr  goto 115
+	accessor_expr  goto 116
+	index_expr  goto 117
+	slice_expr  goto 118
+	call_expr  goto 119
+	channel_send_expr  goto 120
+	channel_receive_expr  goto 121
+	range_expr  goto 124
+	bridge_expr  goto 122
+	transfer_expr  goto 123
+	symbol  goto 125
+	case_condition  goto 295
+
+state 293
+	statement_list:  statement_list.terminal statement 
+	case_clause:  DEFAULT COLON statement_list.    (79)
+
+	NEWLINE  shift 29
+	SEMICOLON  shift 28
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  reduce 79 (src line 575)
+
+	terminal  goto 146
+
+state 294
+	statement_list:  statement_list.terminal statement 
+	case_clause:  CASE case_condition COLON statement_list.    (78)
+
+	NEWLINE  shift 29
+	SEMICOLON  shift 28
+	EOF  shift 30
+	ILLEGAL  shift 31
+	.  reduce 78 (src line 574)
+
+	terminal  goto 146
+
+state 295
+	case_condition:  expr COMMA case_condition.    (81)
+
+	.  reduce 81 (src line 579)
+
+Rule not reduced: block:  LBRACE statement_list RBRACE 
+Rule not reduced: for_init:  
+Rule not reduced: for_condition:  
+Rule not reduced: for_condition:  for_condition 
+Rule not reduced: for_post:  for_post 
+Rule not reduced: array_index:  LBRACK expr RBRACK 
+Rule not reduced: slice_index:  LBRACK expr COLON expr RBRACK 
+Rule not reduced: for_range:  FOR range_expr block 
+Rule not reduced: return_expr:  RETURN expr 
+Rule not reduced: group_expr:  LPAREN expr RPAREN 
+Rule not reduced: symbol_list:  symbol 
+Rule not reduced: symbol_list:  symbol_list COMMA symbol 
+Rule not reduced: add_assign_expr:  expr ADD_ASSIGN expr 
+Rule not reduced: default_:  DEFAULT COLON block 
+Rule not reduced: case_:  CASE expr COLON block 
+Rule not reduced: launch:  LAUNCH expr 
+Rule not reduced: select_:  SELECT expr block 
+Rule not reduced: array_declaration:  LBRACK expr RBRACK 
+Rule not reduced: slice_declaration:  LBRACK expr COLON expr RBRACK 
+Rule not reduced: default_clause:  DEFAULT COLON block 
+
+132 terminals, 81 nonterminals
+169 grammar rules, 296/16000 states
+344 shift/reduce, 19 reduce/reduce conflicts reported
+130 working sets used
+memory: parser 1331/240000
+158 extra closures
+1431 shift entries, 2 exceptions
+221 goto entries
+809 entries saved by goto default
+Optimizer space used: output 993/240000
+993 table entries, 353 zero
+maximum spread: 128, maximum offset: 292

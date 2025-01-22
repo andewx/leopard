@@ -1,0 +1,35 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {     
+        "name": "Launch Package",
+        "type": "go",
+        "request": "launch",
+        "mode": "auto", // Automatically chooses the appropriate mode (debug, test, etc.)
+        "program": "${workspaceFolder}/src/generator/main", // The folder where your main Go package is located
+        "env": {}, // Environment variables (optional, e.g., {"GO_ENV": "development"})
+        "args": [] // Command-line arguments to pass to your program (optional)
+      },
+      {
+        "name": "Debug Test",
+        "type": "go",
+        "request": "launch",
+        "mode": "test", // Runs Go tests in the specified package
+        "program": "${workspaceFolder}", // The folder where your test files are located
+        "env": {}, // Environment variables (optional)
+        "args": [] // Arguments for tests (optional, e.g., ["-run", "TestFunctionName"])
+      },
+      {
+        "name": "Attach to Running Process",
+        "type": "go",
+        "request": "attach",
+        "mode": "remote",
+        "remotePath": "", // Path to the Go code on the remote machine (optional for local)
+        "port": 2345, // Port where `dlv` server is running
+        "host": "127.0.0.1", // Host for the debugger (usually localhost)
+        "cwd": "${workspaceFolder}", // Working directory
+        "env": {} // Environment variables (optional)
+      }
+    ]
+  }
+  
